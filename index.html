@@ -172,13 +172,272 @@
             transform: translateY(0);
         }
         
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 4rem 2rem;
-            border-top: 1px solid var(--iron-grey);
+        /* Era Cards */
+        .era-card {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+        }
+
+        .era-card:nth-child(even) {
+            grid-template-columns: 1fr 1fr;
+            direction: rtl;
+        }
+
+        .era-card:nth-child(even) > * {
+            direction: ltr;
+        }
+
+        @media (max-width: 768px) {
+            .era-card, .era-card:nth-child(even) {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                padding-left: 40px;
+            }
+        }
+
+        .era-marker {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 20px;
+            height: 20px;
+            background: var(--bg-primary);
+            border: 4px solid var(--accent-gold);
+            border-radius: 50%;
+            z-index: 2;
+            box-shadow: 0 0 10px var(--accent-gold);
+        }
+
+        @media (max-width: 768px) {
+            .era-marker {
+                left: 20px;
+                top: 0;
+                transform: translate(-50%, 0);
+            }
+        }
+
+        .era-content {
+            background: var(--bg-card);
+            padding: 2.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--iron-grey);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .era-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--accent-gold);
+        }
+
+        .era-year {
+            font-family: var(--font-display);
+            font-size: 3rem;
+            color: var(--accent-bronze);
+            line-height: 1;
+            margin-bottom: 0.5rem;
+            opacity: 0.8;
+        }
+
+        .era-title {
+            font-size: 1.8rem;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+
+        .era-desc {
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            background: rgba(200, 146, 42, 0.1);
+            border: 1px solid var(--accent-bronze);
+            color: var(--accent-amber);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-radius: 4px;
+            margin-bottom: 1.5rem;
+        }
+
+        .era-stat {
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            color: var(--highlight);
+            border-top: 1px dashed var(--iron-grey);
+            padding-top: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .era-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 300px;
+            background: radial-gradient(circle at center, rgba(200, 146, 42, 0.05) 0%, transparent 70%);
+            border-radius: 8px;
+            border: 1px solid rgba(74, 74, 82, 0.3);
+        }
+
+        /* SVG Animations */
+        .spin-cw { animation: spin 10s linear infinite; transform-origin: center; }
+        .spin-ccw { animation: spin-reverse 10s linear infinite; transform-origin: center; }
+        
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+        @keyframes spin-reverse { 100% { transform: rotate(-360deg); } }
+
+        /* Comparison Table */
+        .table-container {
+            overflow-x: auto;
+            background: var(--bg-card);
+            border-radius: 8px;
+            border: 1px solid var(--iron-grey);
+            padding: 1rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.9rem;
+        }
+
+        th, td {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(74, 74, 82, 0.5);
+        }
+
+        th {
+            color: var(--accent-gold);
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        td {
+            color: var(--text-primary);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Research Cards */
+        .research-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .research-card {
+            background: var(--bg-card);
+            border: 1px solid var(--iron-grey);
+            border-radius: 8px;
+            padding: 2rem;
+            position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .research-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.1);
+            border-color: rgba(0, 212, 255, 0.3);
+        }
+
+        .research-badge {
+            position: absolute;
+            top: -12px;
+            left: 20px;
+            background: var(--bg-primary);
+            color: var(--research-glow);
+            border: 1px solid var(--research-glow);
+            padding: 0.2rem 0.8rem;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            border-radius: 20px;
+            box-shadow: 0 0 10px rgba(0, 212, 255, 0.2);
+        }
+
+        .research-title {
+            font-size: 1.5rem;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .research-desc {
             color: var(--text-muted);
             font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .research-stat {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: var(--research-glow);
+            border-top: 1px dashed rgba(0, 212, 255, 0.3);
+            padding-top: 1rem;
+        }
+
+        /* Footer */
+        .site-footer {
+            text-align: center;
+            padding: 4rem 2rem 2rem;
+            border-top: 1px solid var(--iron-grey);
+            background: var(--bg-secondary);
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .footer-tagline {
+            color: var(--accent-gold);
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-style: italic;
+        }
+
+        .footer-meta {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .footer-meta .highlight {
+            color: var(--text-primary);
+            font-weight: 700;
+        }
+
+        .ai-disclaimer {
+            font-size: 0.75rem;
+            opacity: 0.6;
+            margin-top: 1rem;
         }
     </style>
 </head>
@@ -204,27 +463,359 @@
     <div class="container" id="timeline">
         <h2 class="section-title reveal">The Timeline</h2>
         <div class="timeline">
-            <!-- Eras will be injected here in Step 2 -->
+            <!-- ERA 1 -->
+            <div class="era-card reveal">
+                <div class="era-marker"></div>
+                <div class="era-content">
+                    <div class="era-year">~25 BC</div>
+                    <h3 class="era-title">Vitruvius and the Roman Watermill</h3>
+                    <div class="badge">Key Breakthrough: First 90° Direction Change</div>
+                    <p class="era-desc">The Roman architect Vitruvius described the first documented right-angle gear drive in his treatise De Architectura (~25 BC). A vertical undershot waterwheel on a horizontal shaft drove a toothed drum wheel, which engaged a second smaller gear on a vertical shaft to turn the millstone. Power was transmitted using lubrication from animal tallow — the first recorded use of a lubricant in a gear system.</p>
+                    <div class="era-stat">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                        Ratio ~3:1 to 8:1 (driver:driven)
+                    </div>
+                </div>
+                <div class="era-visual">
+                    <svg width="200" height="200" viewBox="0 0 200 200">
+                        <g class="spin-cw" transform="translate(100, 100)">
+                            <circle r="60" fill="none" stroke="var(--iron-grey)" stroke-width="4"/>
+                            <circle r="80" fill="none" stroke="var(--iron-grey)" stroke-width="2" stroke-dasharray="10 15"/>
+                            <circle r="20" fill="none" stroke="var(--accent-bronze)" stroke-width="4"/>
+                            <!-- Pins -->
+                            <line x1="0" y1="-60" x2="0" y2="-80" stroke="var(--accent-gold)" stroke-width="6" stroke-linecap="round"/>
+                            <line x1="0" y1="60" x2="0" y2="80" stroke="var(--accent-gold)" stroke-width="6" stroke-linecap="round"/>
+                            <line x1="-60" y1="0" x2="-80" y2="0" stroke="var(--accent-gold)" stroke-width="6" stroke-linecap="round"/>
+                            <line x1="60" y1="0" x2="80" y2="0" stroke="var(--accent-gold)" stroke-width="6" stroke-linecap="round"/>
+                            <line x1="-42" y1="-42" x2="-56" y2="-56" stroke="var(--accent-gold)" stroke-width="6" stroke-linecap="round"/>
+                            <line x1="42" y1="42" x2="56" y2="56" stroke="var(--accent-gold)" stroke-width="6" stroke-linecap="round"/>
+                            <line x1="-42" y1="42" x2="-56" y2="56" stroke="var(--accent-gold)" stroke-width="6" stroke-linecap="round"/>
+                            <line x1="42" y1="-42" x2="56" y2="-56" stroke="var(--accent-gold)" stroke-width="6" stroke-linecap="round"/>
+                        </g>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- ERA 2 -->
+            <div class="era-card reveal">
+                <div class="era-marker"></div>
+                <div class="era-visual">
+                    <svg width="200" height="200" viewBox="0 0 200 200">
+                        <g class="spin-ccw" transform="translate(100, 100)">
+                            <circle r="70" fill="none" stroke="#4a4a52" stroke-width="15"/>
+                            <circle r="50" fill="none" stroke="#2a2a32" stroke-width="2"/>
+                            <!-- Wooden Cogs -->
+                            <path d="M-10 -75 L10 -75 L15 -95 L-15 -95 Z" fill="var(--accent-bronze)"/>
+                            <path d="M-10 75 L10 75 L15 95 L-15 95 Z" fill="var(--accent-bronze)"/>
+                            <path d="M-75 -10 L-75 10 L-95 15 L-95 -15 Z" fill="var(--accent-bronze)"/>
+                            <path d="M75 -10 L75 10 L95 15 L95 -15 Z" fill="var(--accent-bronze)"/>
+                            <path d="M-45 -60 L-30 -50 L-40 -75 L-60 -65 Z" fill="var(--accent-bronze)"/>
+                            <path d="M45 60 L30 50 L40 75 L60 65 Z" fill="var(--accent-bronze)"/>
+                            <path d="M-45 60 L-30 50 L-40 75 L-60 65 Z" fill="var(--accent-bronze)"/>
+                            <path d="M45 -60 L30 -50 L40 -75 L60 -65 Z" fill="var(--accent-bronze)"/>
+                        </g>
+                    </svg>
+                </div>
+                <div class="era-content">
+                    <div class="era-year">~1760s–1820s</div>
+                    <h3 class="era-title">The Industrial Revolution and the Iron Gear</h3>
+                    <div class="badge">Key Breakthrough: Hybrid Shock-Absorption</div>
+                    <p class="era-desc">Steam-powered mills demanded torque levels that wooden gears simply could not withstand. Engineers transitioned to grey cast iron for structural strength, while retaining wooden cogs inserted into iron rims — the "mortise" construction. This hybrid design allowed the softer wooden teeth to absorb shock and vibration, reducing catastrophic failure under inconsistent steam torque.</p>
+                    <div class="era-stat">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                        Steam engines reached 50–100 HP
+                    </div>
+                </div>
+            </div>
+
+            <!-- ERA 3 -->
+            <div class="era-card reveal">
+                <div class="era-marker"></div>
+                <div class="era-content">
+                    <div class="era-year">Mid-1800s</div>
+                    <h3 class="era-title">Pitch Cone Geometry and Bevel Gears</h3>
+                    <div class="badge">Key Breakthrough: Line Contact Geometry</div>
+                    <p class="era-desc">Early flat "face wheels" were replaced by conical bevel gears whose pitch surfaces intersect at the shaft junction. This geometry creates line contact along the full tooth flank rather than the point contact of earlier designs, dramatically increasing the load-bearing area. The axes of both shafts, if extended, meet at a single point called the pitch apex — a mathematically precise arrangement that became the foundation of all modern bevel gear theory.</p>
+                    <div class="era-stat">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20V10M18 20V4M6 20v-4"/></svg>
+                        Load capacity increased by an order of magnitude
+                    </div>
+                </div>
+                <div class="era-visual">
+                    <svg width="200" height="200" viewBox="0 0 200 200">
+                        <g transform="translate(100, 100)">
+                            <!-- Cone 1 -->
+                            <path d="M0 0 L-60 -80 L60 -80 Z" fill="none" stroke="var(--iron-grey)" stroke-width="2" stroke-dasharray="5 5"/>
+                            <path d="M-40 -53 L40 -53" stroke="var(--accent-gold)" stroke-width="4"/>
+                            <path d="M-50 -66 L50 -66" stroke="var(--accent-gold)" stroke-width="4"/>
+                            <!-- Cone 2 -->
+                            <path d="M0 0 L80 -60 L80 60 Z" fill="none" stroke="var(--iron-grey)" stroke-width="2" stroke-dasharray="5 5"/>
+                            <path d="M53 -40 L53 40" stroke="var(--accent-bronze)" stroke-width="4"/>
+                            <path d="M66 -50 L66 50" stroke="var(--accent-bronze)" stroke-width="4"/>
+                            <!-- Apex -->
+                            <circle cx="0" cy="0" r="4" fill="var(--highlight)"/>
+                        </g>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- ERA 4 -->
+            <div class="era-card reveal">
+                <div class="era-marker"></div>
+                <div class="era-visual">
+                    <svg width="200" height="200" viewBox="0 0 200 200">
+                        <g transform="translate(100, 100)">
+                            <path d="M-50 0 A50 50 0 0 1 50 0" fill="none" stroke="var(--iron-grey)" stroke-width="20"/>
+                            <!-- Cutting Tool -->
+                            <g>
+                                <path d="M0 -80 L-10 -100 L10 -100 Z" fill="var(--accent-amber)"/>
+                                <line x1="0" y1="-80" x2="0" y2="-50" stroke="var(--highlight)" stroke-width="2" stroke-dasharray="2 2"/>
+                                <animateTransform attributeName="transform" type="rotate" from="-30" to="30" dur="2s" repeatCount="indefinite" />
+                            </g>
+                            <!-- Gear Teeth -->
+                            <path d="M-45 -20 L-35 -10 M-25 -40 L-15 -30 M0 -50 L0 -40 M25 -40 L15 -30 M45 -20 L35 -10" stroke="var(--accent-gold)" stroke-width="4"/>
+                        </g>
+                    </svg>
+                </div>
+                <div class="era-content">
+                    <div class="era-year">1874</div>
+                    <h3 class="era-title">Gleason's Bevel Gear Planer</h3>
+                    <div class="badge">Key Breakthrough: Precision Generation</div>
+                    <p class="era-desc">Irish immigrant William Gleason invented the first dedicated bevel gear planer in Rochester, New York in 1874. His machine used a single-point cutting tool guided to point toward the pitch apex, generating true conical tooth geometry rather than the approximations previously cut by hand or form cutters. This marked the birth of the bevel gear industry and enabled the mass production of precision gears.</p>
+                    <div class="era-stat">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                        Enabled gears to run at thousands of RPM
+                    </div>
+                </div>
+            </div>
+
+            <!-- ERA 5 -->
+            <div class="era-card reveal">
+                <div class="era-marker"></div>
+                <div class="era-content">
+                    <div class="era-year">1913–1926</div>
+                    <h3 class="era-title">Spiral Bevel and Hypoid Gears</h3>
+                    <div class="badge">Key Breakthrough: Hypoid Offset</div>
+                    <p class="era-desc">In 1913, James E. Gleason and Arthur Stewart designed the spiral bevel gear, which uses curved teeth running diagonally across the cone face. In 1926, Ernest Wildhaber invented the hypoid gear, where the pinion axis is offset below the ring gear centerline. Packard was first to adopt it, allowing the driveshaft and passenger floor to be lowered — a defining moment in automobile body design.</p>
+                    <div class="era-stat">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+                        Reduced vehicle floor height by ~4 inches
+                    </div>
+                </div>
+                <div class="era-visual">
+                    <svg width="200" height="200" viewBox="0 0 200 200">
+                        <g transform="translate(100, 100)">
+                            <!-- Ring Gear -->
+                            <ellipse cx="0" cy="0" rx="60" ry="20" fill="none" stroke="var(--iron-grey)" stroke-width="10"/>
+                            <!-- Pinion (Offset) -->
+                            <g class="spin-cw" transform="translate(40, 30)">
+                                <circle r="15" fill="none" stroke="var(--accent-gold)" stroke-width="6"/>
+                                <line x1="-15" y1="0" x2="15" y2="0" stroke="var(--accent-gold)" stroke-width="4"/>
+                                <line x1="0" y1="-15" x2="0" y2="15" stroke="var(--accent-gold)" stroke-width="4"/>
+                            </g>
+                            <!-- Offset indicator -->
+                            <line x1="0" y1="0" x2="40" y2="0" stroke="var(--text-muted)" stroke-width="1" stroke-dasharray="2 2"/>
+                            <line x1="40" y1="0" x2="40" y2="30" stroke="var(--highlight)" stroke-width="2"/>
+                            <text x="45" y="15" fill="var(--highlight)" font-size="10" font-family="monospace">Offset</text>
+                        </g>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- ERA 6 -->
+            <div class="era-card reveal">
+                <div class="era-marker"></div>
+                <div class="era-visual">
+                    <svg width="200" height="200" viewBox="0 0 200 200">
+                        <g transform="translate(100, 100)">
+                            <!-- Worm Wheel -->
+                            <g class="spin-cw" style="animation-duration: 20s;">
+                                <circle r="50" fill="none" stroke="var(--iron-grey)" stroke-width="10"/>
+                                <path d="M-50 0 L50 0 M0 -50 L0 50 M-35 -35 L35 35 M-35 35 L35 -35" stroke="var(--iron-grey)" stroke-width="2"/>
+                            </g>
+                            <!-- Worm Screw -->
+                            <g transform="translate(0, -55)">
+                                <rect x="-40" y="-10" width="80" height="20" fill="var(--bg-card)" stroke="var(--accent-gold)" stroke-width="2"/>
+                                <path d="M-30 -10 L-20 10 M-10 -10 L0 10 M10 -10 L20 10 M30 -10 L40 10" stroke="var(--accent-gold)" stroke-width="4"/>
+                            </g>
+                        </g>
+                    </svg>
+                </div>
+                <div class="era-content">
+                    <div class="era-year">20th Century</div>
+                    <h3 class="era-title">Worm Drives and Extreme Reduction</h3>
+                    <div class="badge">Key Breakthrough: 100:1 Single-Stage Reduction</div>
+                    <p class="era-desc">A worm drive pairs a screw-thread helical shaft (the worm) with a large wheel whose teeth are angled to match. The geometry creates a high sliding contact ratio that enables reduction ratios up to 100:1 in a single compact stage. The same sliding geometry produces the worm's most valuable property: self-locking. The worm can drive the wheel, but the wheel cannot back-drive the worm, making it an inherent passive brake.</p>
+                    <div class="era-stat">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                        Self-locking = passive mechanical brake
+                    </div>
+                </div>
+            </div>
+
+            <!-- ERA 7 -->
+            <div class="era-card reveal">
+                <div class="era-marker"></div>
+                <div class="era-content">
+                    <div class="era-year">Modern Aviation</div>
+                    <h3 class="era-title">Face Gears and Split-Torque Systems</h3>
+                    <div class="badge">Key Breakthrough: Passive Torque Equalization</div>
+                    <p class="era-desc">Modern helicopter and tiltrotor transmissions face an extreme challenge: combining power from two separate engines into one rotor shaft, with perfect load sharing. The solution is a "split-torque" face gear system, where a single spur pinion meshes simultaneously with two face gears on the left and right. Critically, the pinion is allowed to "float" axially — it self-centers to equalize mesh forces, passively splitting torque 50/50.</p>
+                    <div class="era-stat">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                        50/50 torque split with dual engine inputs
+                    </div>
+                </div>
+                <div class="era-visual">
+                    <svg width="200" height="200" viewBox="0 0 200 200">
+                        <g transform="translate(100, 100)">
+                            <!-- Face Gear 1 -->
+                            <ellipse cx="-40" cy="0" rx="10" ry="60" fill="none" stroke="var(--iron-grey)" stroke-width="4"/>
+                            <!-- Face Gear 2 -->
+                            <ellipse cx="40" cy="0" rx="10" ry="60" fill="none" stroke="var(--iron-grey)" stroke-width="4"/>
+                            <!-- Floating Pinion -->
+                            <g class="spin-cw">
+                                <rect x="-15" y="-20" width="30" height="40" fill="none" stroke="var(--accent-gold)" stroke-width="4"/>
+                                <line x1="-15" y1="0" x2="15" y2="0" stroke="var(--accent-gold)" stroke-width="2"/>
+                            </g>
+                            <!-- Input/Output arrows -->
+                            <path d="M0 -40 L0 -70 M-5 -60 L0 -70 L5 -60" stroke="var(--highlight)" stroke-width="2" fill="none"/>
+                            <path d="M-70 0 L-50 0 M-60 -5 L-50 0 L-60 5" stroke="var(--text-muted)" stroke-width="2" fill="none"/>
+                            <path d="M70 0 L50 0 M60 -5 L50 0 L60 5" stroke="var(--text-muted)" stroke-width="2" fill="none"/>
+                        </g>
+                    </svg>
+                </div>
+            </div>
         </div>
     </div>
 
     <div class="container" id="comparison">
         <h2 class="section-title reveal">Innovation Comparison</h2>
-        <!-- Comparison table will be injected here in Step 3 -->
-    </div>
-
-    <div class="container" id="playground">
-        <h2 class="section-title reveal">Interactive Gear Playground</h2>
-        <!-- Playground will be injected here in Step 3 -->
+        <div class="table-container reveal">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Era / Year</th>
+                        <th>Gear Type</th>
+                        <th>Material</th>
+                        <th>Contact Type</th>
+                        <th>Max Ratio</th>
+                        <th>Key Application</th>
+                        <th>Self-locking?</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>~25 BC</td>
+                        <td>Lantern / Face Wheel</td>
+                        <td>Oak & Elm Wood</td>
+                        <td>Point</td>
+                        <td>~8:1</td>
+                        <td>Watermills</td>
+                        <td>No</td>
+                    </tr>
+                    <tr>
+                        <td>~1760s–1820s</td>
+                        <td>Mortise Gear</td>
+                        <td>Cast Iron & Wood</td>
+                        <td>Point / Line</td>
+                        <td>~10:1</td>
+                        <td>Steam Mills</td>
+                        <td>No</td>
+                    </tr>
+                    <tr>
+                        <td>Mid-1800s</td>
+                        <td>Straight Bevel</td>
+                        <td>Steel / Iron</td>
+                        <td>Line</td>
+                        <td>~10:1</td>
+                        <td>Industrial Mach.</td>
+                        <td>No</td>
+                    </tr>
+                    <tr>
+                        <td>1874</td>
+                        <td>Generated Bevel</td>
+                        <td>Steel</td>
+                        <td>Line (Precision)</td>
+                        <td>~10:1</td>
+                        <td>High-speed Mach.</td>
+                        <td>No</td>
+                    </tr>
+                    <tr>
+                        <td>1913–1926</td>
+                        <td>Spiral / Hypoid</td>
+                        <td>Alloy Steel</td>
+                        <td>Rolling / Sliding</td>
+                        <td>~10:1</td>
+                        <td>Automotive</td>
+                        <td>No</td>
+                    </tr>
+                    <tr>
+                        <td>20th Century</td>
+                        <td>Worm Drive</td>
+                        <td>Bronze / Steel</td>
+                        <td>High Sliding</td>
+                        <td>100:1+</td>
+                        <td>Lifts / Steering</td>
+                        <td>Yes</td>
+                    </tr>
+                    <tr>
+                        <td>Modern</td>
+                        <td>Face Gear (Split)</td>
+                        <td>Aerospace Alloys</td>
+                        <td>Line</td>
+                        <td>Varies</td>
+                        <td>Helicopters</td>
+                        <td>No</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <div class="container" id="research">
         <h2 class="section-title reveal">Frontier Research</h2>
-        <!-- Research cards will be injected here in Step 3 -->
+        <div class="research-grid">
+            <!-- Card 1 -->
+            <div class="research-card reveal">
+                <div class="research-badge">Materials Science + Additive Mfg</div>
+                <h3 class="research-title">Additive-Manufactured Lattice Gears</h3>
+                <p class="research-desc">Researchers are using Selective Laser Melting (SLM) to 3D-print titanium alloy (Ti-6Al-4V) gears with internal cellular lattice structures — geometries impossible to achieve with conventional machining. Topology optimization software removes non-critical material while maintaining tooth strength, achieving significant weight and vibration reduction.</p>
+                <div class="research-stat">Stat: Weight reductions of 30–50% demonstrated; lower rotational inertia</div>
+            </div>
+            <!-- Card 2 -->
+            <div class="research-card reveal">
+                <div class="research-badge">AI + Electric Vehicles</div>
+                <h3 class="research-title">AI & Machine Learning in Design</h3>
+                <p class="research-desc">The electrification of vehicle powertrains is driving a new wave of AI-assisted gear design. Researchers are applying machine learning to automatically generate transmission topologies, predict gear noise levels from manufacturing parameters, and create "digital twin" models that monitor gear health in real-time.</p>
+                <div class="research-stat">Stat: ML models achieving >90% accuracy in gear noise prediction</div>
+            </div>
+            <!-- Card 3 -->
+            <div class="research-card reveal">
+                <div class="research-badge">Precision Mfg + Acoustics</div>
+                <h3 class="research-title">Ultra-Precision EV Gears</h3>
+                <p class="research-desc">Electric vehicles have eliminated engine noise — which means gear whine, once masked by combustion sounds, is now clearly audible. This has triggered a revolution in gear precision requirements. Manufacturers are demanding sub-micron surface finishes, tighter tooth form tolerances, and advanced honing processes.</p>
+                <div class="research-stat">Stat: Surface roughness targets now Ra &lt; 0.2μm for premium EV drivetrains</div>
+            </div>
+            <!-- Card 4 -->
+            <div class="research-card reveal">
+                <div class="research-badge">Advanced Materials + Aerospace</div>
+                <h3 class="research-title">Carbon Composite and Ceramic Gears</h3>
+                <p class="research-desc">Beyond metals, engineers are actively developing gears from carbon fiber composites and advanced ceramics — materials offering exceptional strength-to-weight ratios critical for aerospace and high-speed robotics. Ceramic gears excel in high-temperature, corrosive environments where steel fails.</p>
+                <div class="research-stat">Stat: Carbon fiber gears can be 70% lighter than steel equivalents</div>
+            </div>
+        </div>
     </div>
 
-    <footer>
-        <p>From Roman tallow-lubricated wood to titanium lattice — 2,000 years of turning corners.</p>
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p class="footer-tagline">"From Roman tallow-lubricated wood to titanium lattice — 2,000 years of turning corners."</p>
+            <div class="footer-meta">
+                <p>&copy; 2026 Prashant Fawade. All rights reserved.</p>
+                <p>Built with <span class="highlight">Gemini</span> &amp; <span class="highlight">Vercel</span></p>
+                <p class="ai-disclaimer">Disclaimer: This site features AI-generated content for educational and demonstrative purposes.</p>
+            </div>
+        </div>
     </footer>
 
     <script>
