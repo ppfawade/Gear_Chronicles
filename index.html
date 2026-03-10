@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Gear Chronicles</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #111118;
+            --bg-card: #16161f;
+            --accent-gold: #c8922a;
+            --accent-bronze: #a0712a;
+            --accent-amber: #f0b429;
+            --text-primary: #e8e4d9;
+            --text-muted: #8a8070;
+            --iron-grey: #4a4a52;
+            --highlight: #ff9f1c;
+            --research-glow: #00d4ff;
+            --font-display: 'Cormorant Garamond', serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: var(--font-mono);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                linear-gradient(rgba(10, 10, 15, 0.9), rgba(10, 10, 15, 0.9)),
+                repeating-linear-gradient(0deg, transparent, transparent 1px, rgba(255,255,255,0.03) 1px, rgba(255,255,255,0.03) 2px),
+                repeating-linear-gradient(90deg, transparent, transparent 1px, rgba(255,255,255,0.03) 1px, rgba(255,255,255,0.03) 2px);
+            background-size: 100% 100%, 40px 40px, 40px 40px;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-display);
+            font-weight: 700;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            padding: 2rem;
+            overflow: hidden;
+        }
+
+        .hero-bg-gear {
+            position: absolute;
+            width: 120vw;
+            height: 120vw;
+            max-width: 1200px;
+            max-height: 1200px;
+            opacity: 0.05;
+            z-index: -1;
+            animation: rotate-slow 120s linear infinite;
+            color: var(--accent-gold);
+        }
+
+        @keyframes rotate-slow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            color: var(--accent-gold);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            text-shadow: 0 0 20px rgba(200, 146, 42, 0.3);
+        }
+
+        .hero p {
+            font-size: clamp(1rem, 2vw, 1.5rem);
+            color: var(--text-muted);
+            max-width: 600px;
+            margin-bottom: 3rem;
+        }
+
+        .cta-scroll {
+            color: var(--accent-amber);
+            text-decoration: none;
+            font-size: 0.9rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            animation: pulse 2s infinite;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            cursor: pointer;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; transform: translateY(0); }
+            50% { opacity: 1; transform: translateY(10px); }
+        }
+
+        /* Container for content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        /* Section Titles */
+        .section-title {
+            font-size: 2.5rem;
+            color: var(--accent-gold);
+            text-align: center;
+            margin-bottom: 4rem;
+            border-bottom: 1px solid var(--iron-grey);
+            padding-bottom: 1rem;
+        }
+
+        /* Timeline Section */
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 6rem;
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--iron-grey);
+            transform: translateX(-50%);
+            z-index: -1;
+        }
+
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 20px;
+            }
+        }
+
+        /* Utility classes for scroll animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 4rem 2rem;
+            border-top: 1px solid var(--iron-grey);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <section class="hero">
+        <!-- Background Gear SVG -->
+        <svg class="hero-bg-gear" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <path fill="currentColor" d="M50 5c-2.8 0-5 2.2-5 5v5.3c-2.5.6-4.9 1.5-7.1 2.7l-3.8-3.8c-2-2-5.1-2-7.1 0l-3.5 3.5c-2 2-2 5.1 0 7.1l3.8 3.8c-1.2 2.2-2.1 4.6-2.7 7.1H10c-2.8 0-5 2.2-5 5v5c0 2.8 2.2 5 5 5h5.3c.6 2.5 1.5 4.9 2.7 7.1l-3.8 3.8c-2 2-2 5.1 0 7.1l3.5 3.5c2 2 5.1 2 7.1 0l3.8-3.8c2.2 1.2 4.6 2.1 7.1 2.7V90c0 2.8 2.2 5 5 5h5c2.8 0 5-2.2 5-5v-5.3c2.5-.6 4.9-1.5 7.1-2.7l3.8 3.8c2 2 5.1 2 7.1 0l3.5-3.5c2-2 2-5.1 0-7.1l-3.8-3.8c1.2-2.2 2.1-4.6 2.7-7.1h5.3c2.8 0 5-2.2 5-5v-5c0-2.8-2.2-5-5-5h-5.3c-.6-2.5-1.5-4.9-2.7-7.1l3.8-3.8c2-2 2-5.1 0-7.1l-3.5-3.5c-2-2-5.1-2-7.1 0l-3.8 3.8c-2.2-1.2-4.6-2.1-7.1-2.7V10c0-2.8-2.2-5-5-5h-5zm0 25c11 0 20 9 20 20s-9 20-20 20-20-9-20-20 9-20 20-20z"/>
+        </svg>
+
+        <h1>The Gear Chronicles</h1>
+        <p>2,000 Years of Right-Angle Power Transmission</p>
+        
+        <a href="#timeline" class="cta-scroll">
+            Begin the Journey
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 5v14M19 12l-7 7-7-7"/>
+            </svg>
+        </a>
+    </section>
+
+    <div class="container" id="timeline">
+        <h2 class="section-title reveal">The Timeline</h2>
+        <div class="timeline">
+            <!-- Eras will be injected here in Step 2 -->
+        </div>
+    </div>
+
+    <div class="container" id="comparison">
+        <h2 class="section-title reveal">Innovation Comparison</h2>
+        <!-- Comparison table will be injected here in Step 3 -->
+    </div>
+
+    <div class="container" id="playground">
+        <h2 class="section-title reveal">Interactive Gear Playground</h2>
+        <!-- Playground will be injected here in Step 3 -->
+    </div>
+
+    <div class="container" id="research">
+        <h2 class="section-title reveal">Frontier Research</h2>
+        <!-- Research cards will be injected here in Step 3 -->
+    </div>
+
+    <footer>
+        <p>From Roman tallow-lubricated wood to titanium lattice — 2,000 years of turning corners.</p>
+    </footer>
+
+    <script>
+        // Intersection Observer for scroll animations
+        document.addEventListener('DOMContentLoaded', () => {
+            const reveals = document.querySelectorAll('.reveal');
+            
+            const revealOptions = {
+                threshold: 0.15,
+                rootMargin: "0px 0px -50px 0px"
+            };
+
+            const revealOnScroll = new IntersectionObserver(function(entries, observer) {
+                entries.forEach(entry => {
+                    if (!entry.isIntersecting) return;
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target);
+                });
+            }, revealOptions);
+
+            reveals.forEach(reveal => {
+                revealOnScroll.observe(reveal);
+            });
+        });
+    </script>
+</body>
+</html>
+
